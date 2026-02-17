@@ -1,0 +1,40 @@
+/*
+ * env_samp - Environment Variables Plugin for SA:MP
+ * GNU General Public License v3.0
+ * https://github.com/NullSablex/env_samp
+ */
+
+#if defined _env_samp_included
+    #endinput
+#endif
+#define _env_samp_included
+
+/*
+ * Type constants for Env() native
+ */
+#define ENV_STRING  0  /* Return value as string (default) */
+#define ENV_INT     1  /* Convert and return as integer */
+#define ENV_FLOAT   2  /* Convert and return as float */
+#define ENV_BOOL    3  /* Convert and return as boolean (0 or 1) */
+
+/*
+ * Get environment variable from .env file
+ *
+ * Params:
+ *   key:      Variable name to retrieve
+ *   dest:     Buffer to store the result
+ *   type:     Data type (ENV_STRING, ENV_INT, ENV_FLOAT, ENV_BOOL)
+ *   dest_len: Size of destination buffer (auto-calculated by default)
+ *
+ * Returns:
+ *   true if variable exists and was retrieved, false otherwise
+ */
+native bool:Env(const key[], dest[], type = ENV_STRING, dest_len = sizeof(dest));
+
+/*
+ * Get total number of variables loaded from .env
+ *
+ * Returns:
+ *   Total count of environment variables
+ */
+native EnvCount();
