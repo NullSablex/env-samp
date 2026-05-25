@@ -3,8 +3,8 @@ site_description: Environment variables (.env) plugin for SA-MP and Open Multipl
 site_author: NullSablex
 site_url: https://env-samp.nullsablex.com/
 
-repo_name: NullSablex/env_samp
-repo_url: https://github.com/NullSablex/env_samp
+repo_name: NullSablex/env-samp
+repo_url: https://github.com/NullSablex/env-samp
 edit_uri: edit/master/docs/
 
 docs_dir: docs
@@ -90,4 +90,4 @@ nav:
 extra:
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/NullSablex/env_samp
+      link: https://github.com/NullSablex/env-samp

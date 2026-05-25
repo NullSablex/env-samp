@@ -49,4 +49,4 @@ The file must be valid UTF-8. A leading BOM (`U+FEFF`) is stripped automatically
 
 ## Full example
 
-[`examples/env`](https://github.com/NullSablex/env_samp/blob/master/examples/env) in the repository walks through every syntactic feature shown above in a single annotated file — copy it to `.env`, edit the values, and you're set.
+[`examples/env`](https://github.com/NullSablex/env-samp/blob/master/examples/env) in the repository walks through every syntactic feature shown above in a single annotated file — copy it to `.env`, edit the values, and you're set.

@@ -4,7 +4,7 @@ Drop the platform-specific binary into your server's `plugins/` folder and regis
 
 ## Artifacts
 
-Each release at [github.com/NullSablex/env_samp/releases](https://github.com/NullSablex/env_samp/releases) ships:
+Each release at [github.com/NullSablex/env-samp/releases](https://github.com/NullSablex/env-samp/releases) ships:
 
 - `env_samp.so` — Linux i686 (`i686-unknown-linux-gnu`).
 - `env_samp.dll` — Windows i686 (`i686-pc-windows-msvc`).
@@ -40,8 +40,8 @@ Drop the binary into `plugins/` and declare it under `pawn.legacy_plugins` in `c
 
 Place a `.env` file alongside your server executable. The plugin reads `./.env` on `OnGameModeInit`. See [.env format](dotenv-format.md) for the accepted syntax.
 
-A ready-made template lives in the repository at [`examples/env`](https://github.com/NullSablex/env_samp/blob/master/examples/env) — copy it to `.env` and replace the values.
+A ready-made template lives in the repository at [`examples/env`](https://github.com/NullSablex/env-samp/blob/master/examples/env) — copy it to `.env` and replace the values.
 
 ## Example gamemode
 
-A minimal Pawn script wiring every supported type lives at [`examples/example.pwn`](https://github.com/NullSablex/env_samp/blob/master/examples/example.pwn). It's also the script used to smoke-test the plugin during development.
+A minimal Pawn script wiring every supported type lives at [`examples/example.pwn`](https://github.com/NullSablex/env-samp/blob/master/examples/example.pwn). It's also the script used to smoke-test the plugin during development.

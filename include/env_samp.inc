@@ -1,7 +1,7 @@
 /*
  * env_samp v1.0.0 - Environment Variables Plugin for SA-MP and Open Multiplayer.
  * Author:     NullSablex
- * Repository: https://github.com/NullSablex/env_samp
+ * Repository: https://github.com/NullSablex/env-samp
  * License:    AGPL-3.0-or-later
  */
 
