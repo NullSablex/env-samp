@@ -1,15 +1,18 @@
 [package]
 name = "env_samp"
-version = "0.1.0"
+version = "1.0.0"
 edition = "2024"
 authors = ["NullSablex"]
 repository = "https://github.com/NullSablex/env_samp"
 homepage = "https://github.com/NullSablex/env_samp"
-license = "GPL-3.0-only"
+license = "AGPL-3.0-or-later"
 
 [lib]
-crate-type = ["cdylib", "rlib"]
+crate-type = ["cdylib", "lib"]
 
 [dependencies]
-samp = { git = "https://github.com/ZOTTCE/samp-rs", rev = "17ecb2f722bf0d74a98eb782745cd77e41c3c60a" }
-log = "0.4"
+samp = { git = "https://github.com/NullSablex/rust-samp.git", tag = "v3.0.0" }
+chrono = "0.4"
+
+[package.metadata.samp]
+uid = "0xda6b28e7df4a9f5f"

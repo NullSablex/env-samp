@@ -11,6 +11,39 @@ pub enum DotenvError {
     Utf8,
 }
 
+impl std::fmt::Display for DotenvError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::NotFound => write!(f, "not found"),
+            Self::NotRegularFile => write!(f, "is not a regular file"),
+            Self::TooLarge { max_bytes, actual_bytes } => write!(
+                f,
+                "exceeds the size limit ({actual_bytes} > {max_bytes} bytes)"
+            ),
+            Self::Io(err) => write!(f, "I/O error: {err}"),
+            Self::Utf8 => write!(f, "contains invalid UTF-8"),
+        }
+    }
+}
+
+impl std::error::Error for DotenvError {
+    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
+        match self {
+            Self::Io(err) => Some(err),
+            _ => None,
+        }
+    }
+}
+
+impl DotenvError {
+    pub const fn is_warning(&self) -> bool {
+        matches!(
+            self,
+            Self::NotFound | Self::NotRegularFile | Self::TooLarge { .. }
+        )
+    }
+}
+
 pub fn load_dotenv_file(
     path: &Path,
     max_bytes: usize,
@@ -40,58 +73,65 @@ pub fn load_dotenv_file(
     }
 
     let content = String::from_utf8(bytes).map_err(|_| DotenvError::Utf8)?;
-    let content = content.strip_prefix('\u{FEFF}').unwrap_or(&content);
-    Ok(parse_dotenv_str(content))
+    Ok(parse_dotenv_str(&content))
 }
 
 pub fn parse_dotenv_str(input: &str) -> HashMap<String, String> {
-    let input = input.strip_prefix('\u{FEFF}').unwrap_or(input);
     let mut map = HashMap::new();
-
-    for raw_line in input.lines() {
-        let raw_line = raw_line.strip_suffix('\r').unwrap_or(raw_line);
-        let line = raw_line.trim();
-        if line.is_empty() || line.starts_with('#') {
-            continue;
+    for raw_line in strip_bom(input).lines() {
+        if let Some((key, value)) = parse_line(raw_line) {
+            map.insert(key, value);
         }
-        if line.starts_with("export ") {
-            continue;
-        }
-        let Some((key, rest)) = line.split_once('=') else {
-            continue;
-        };
+    }
+    map
+}
 
-        let key = key.trim();
-        if key.is_empty() {
-            continue;
-        }
-
-        let rest = rest.trim();
-        let value = if rest.len() >= 2 && rest.starts_with('\'') && rest.ends_with('\'') {
-            rest[1..rest.len() - 1].to_string()
-        } else if rest.len() >= 2 && rest.starts_with('"') && rest.ends_with('"') {
-            unescape_double_quoted(&rest[1..rest.len() - 1])
-        } else {
-            let mut cut: Option<usize> = None;
-            let mut prev_ws = false;
-            for (i, ch) in rest.char_indices() {
-                if ch == '#' && prev_ws {
-                    cut = Some(i);
-                    break;
-                }
-                prev_ws = ch.is_whitespace();
-            }
-            let rest = match cut {
-                Some(i) => &rest[..i],
-                None => rest,
-            };
-            rest.trim_end().to_string()
-        };
-
-        map.insert(key.to_string(), value);
+fn parse_line(raw: &str) -> Option<(String, String)> {
+    let line = raw.strip_suffix('\r').unwrap_or(raw).trim();
+    if line.is_empty() || line.starts_with('#') || line.starts_with("export ") {
+        return None;
     }
 
-    map
+    let (key, rest) = line.split_once('=')?;
+    let key = key.trim();
+    if key.is_empty() {
+        return None;
+    }
+
+    Some((key.to_string(), parse_value(rest.trim())))
+}
+
+fn parse_value(rest: &str) -> String {
+    if let Some(inner) = strip_quoted(rest, '\'') {
+        return inner.to_string();
+    }
+    if let Some(inner) = strip_quoted(rest, '"') {
+        return unescape_double_quoted(inner);
+    }
+    strip_inline_comment(rest).trim_end().to_string()
+}
+
+fn strip_quoted(s: &str, quote: char) -> Option<&str> {
+    if s.len() >= 2 && s.starts_with(quote) && s.ends_with(quote) {
+        Some(&s[1..s.len() - 1])
+    } else {
+        None
+    }
+}
+
+fn strip_inline_comment(rest: &str) -> &str {
+    let mut prev_ws = false;
+    for (i, ch) in rest.char_indices() {
+        if ch == '#' && prev_ws {
+            return &rest[..i];
+        }
+        prev_ws = ch.is_whitespace();
+    }
+    rest
+}
+
+fn strip_bom(input: &str) -> &str {
+    input.strip_prefix('\u{FEFF}').unwrap_or(input)
 }
 
 fn unescape_double_quoted(s: &str) -> String {
@@ -107,8 +147,6 @@ fn unescape_double_quoted(s: &str) -> String {
             Some('n') => out.push('\n'),
             Some('r') => out.push('\r'),
             Some('t') => out.push('\t'),
-            Some('\\') => out.push('\\'),
-            Some('"') => out.push('"'),
             Some(other) => out.push(other),
             None => out.push('\\'),
         }

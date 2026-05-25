@@ -1,57 +1,57 @@
 # ==============================
-# env_samp - Exemplo de .env
+# env_samp - .env example
 # ==============================
-# Este arquivo demonstra TUDO que o parser aceita.
+# This file demonstrates EVERYTHING the parser accepts.
 
 # ------------------------------
-# 1) Formato básico / espaços
+# 1) Basic format / whitespace
 # ------------------------------
-# Sem espaços (também suportado)
+# Without spaces (also supported)
 APP_ENV=production
 APP_DEBUG=false
 
-# Com espaços (também suportado)
+# With spaces (also supported)
 MYSQL_HOST = 127.0.0.1
 MYSQL_PORT = 3306
 MYSQL_USER = samp_user
-MYSQL_PASS = 'senha forte aqui'
+MYSQL_PASS = 'strong password here'
 MYSQL_DB = samp
 EMPTY_VALUE =
 
 # ------------------------------
-# 2) Aspas simples (literal)
+# 2) Single quotes (literal)
 # ------------------------------
-LITERAL_TEXT = 'texto com \n e \t literal'
+LITERAL_TEXT = 'text with literal \n and \t'
 
 # ------------------------------
-# 3) Aspas duplas (com escapes)
+# 3) Double quotes (with escapes)
 # ------------------------------
-SERVER_NAME = "Meu Servidor SA:MP"
-MOTD = "Linha 1\nLinha 2"
-ESCAPED_QUOTES = "Ele disse: \"oi\""
+SERVER_NAME = "My SA:MP Server"
+MOTD = "Line 1\nLine 2"
+ESCAPED_QUOTES = "He said: \"hi\""
 WINDOWS_PATH = "C:\\samp\\plugins"
 
 # ------------------------------
-# 4) Comentários
+# 4) Comments
 # ------------------------------
-# Linha iniciada com # é ignorada
+# Lines starting with # are ignored
 SERVER_MODE = roleplay
-SERVER_LANGUAGE = pt_BR
-WITH_INLINE_COMMENT = valor # este comentário é ignorado
-HASH_WITHOUT_SPACE = valor#isto_faz_parte_do_valor
+SERVER_LANGUAGE = en_US
+WITH_INLINE_COMMENT = value # this comment is ignored
+HASH_WITHOUT_SPACE = value#this_is_part_of_the_value
 
 # ------------------------------
-# 5) Primeiro '=' separa chave/valor
+# 5) The first '=' separates key/value
 # ------------------------------
 DATABASE_URL = mysql://user:pass@127.0.0.1:3306/samp?opt=a=b=c
 
 # ------------------------------
-# 6) Chave duplicada (a última vence)
+# 6) Duplicate keys (last one wins)
 # ------------------------------
 MAX_PLAYERS = 50
 MAX_PLAYERS = 100
 
 # ------------------------------
-# 7) Tokens / segredos
+# 7) Tokens / secrets
 # ------------------------------
-API_TOKEN = "troque-este-token"
+API_TOKEN = "replace-this-token"

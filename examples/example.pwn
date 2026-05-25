@@ -5,9 +5,9 @@ main() {}
 
 public OnGameModeInit()
 {
-    printf("[env_samp] Variaveis carregadas: %d", EnvCount());
+    printf("[env_samp] Variables loaded: %d", EnvCount());
 
-    // String (tipo padrao)
+    // String (default type)
     new host[64];
     if (Env("MYSQL_HOST", host))
     {
@@ -28,7 +28,7 @@ public OnGameModeInit()
         printf("[env_samp] TICK_RATE=%f", rate);
     }
 
-    // Bool
+    // Boolean
     new bool:debug;
     if (Env("APP_DEBUG", debug, ENV_BOOL))
     {
