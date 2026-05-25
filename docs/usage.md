@@ -53,4 +53,4 @@ printf("[env_samp] Variables loaded: %d", EnvCount());
 
 ## Full gamemode example
 
-A complete Pawn script exercising all four types and `EnvCount` lives at [`examples/example.pwn`](https://github.com/NullSablex/env_samp/blob/master/examples/example.pwn) in the repository, paired with [`examples/env`](https://github.com/NullSablex/env_samp/blob/master/examples/env) as a copy-and-edit `.env` template.
+A complete Pawn script exercising all four types and `EnvCount` lives at [`examples/example.pwn`](https://github.com/NullSablex/env-samp/blob/master/examples/example.pwn) in the repository, paired with [`examples/env`](https://github.com/NullSablex/env-samp/blob/master/examples/env) as a copy-and-edit `.env` template.
