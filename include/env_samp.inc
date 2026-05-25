@@ -1,13 +1,16 @@
 /*
- * env_samp - Environment Variables Plugin for SA:MP
- * GNU General Public License v3.0
- * https://github.com/NullSablex/env_samp
+ * env_samp v1.0.0 - Environment Variables Plugin for SA-MP and Open Multiplayer.
+ * Author:     NullSablex
+ * Repository: https://github.com/NullSablex/env_samp
+ * License:    AGPL-3.0-or-later
  */
 
 #if defined _env_samp_included
     #endinput
 #endif
 #define _env_samp_included
+
+#define ENV_SAMP_VERSION "1.0.0"
 
 /*
  * Type constants for Env() native
