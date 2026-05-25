@@ -56,9 +56,7 @@ fn resolve_env_type(key: &str, env_type_id: i32) -> EnvType {
     match EnvType::try_from(env_type_id) {
         Ok(kind) => kind,
         Err(unknown) => {
-            Logger::warn(&format!(
-                "Env('{key}'): {unknown}, falling back to string"
-            ));
+            Logger::warn(&format!("Env('{key}'): {unknown}, falling back to string"));
             EnvType::String
         }
     }

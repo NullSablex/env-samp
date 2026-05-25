@@ -16,7 +16,10 @@ impl std::fmt::Display for DotenvError {
         match self {
             Self::NotFound => write!(f, "not found"),
             Self::NotRegularFile => write!(f, "is not a regular file"),
-            Self::TooLarge { max_bytes, actual_bytes } => write!(
+            Self::TooLarge {
+                max_bytes,
+                actual_bytes,
+            } => write!(
                 f,
                 "exceeds the size limit ({actual_bytes} > {max_bytes} bytes)"
             ),
