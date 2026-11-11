@@ -20,7 +20,7 @@ Full documentation lives at **<https://env-samp.nullsablex.com/>**:
 - [.env format](https://env-samp.nullsablex.com/dotenv-format/)
 - [API reference](https://env-samp.nullsablex.com/api-reference/)
 
-The Markdown sources are in [docs/](docs/) — `mkdocs serve` from the repo root for a local preview.
+The Markdown sources are in [docs/](docs/) — `uv tool run --from "$(cat requirements-docs.txt)" zensical serve` from the repo root for a local preview.
 
 ## Examples
 
